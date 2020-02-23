@@ -1,3 +1,5 @@
+import 'package:flight_training/screens/admin/home_admin.dart';
+import 'package:flight_training/screens/admin/home_student.dart';
 import 'package:flight_training/screens/login.dart';
 import 'package:flight_training/services/location_service.dart';
 import 'package:flight_training/widgets/map_widget.dart';
@@ -14,6 +16,12 @@ class FlightApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         home: Login(),
+        initialRoute: "/",
+        routes: {
+    '/admin': (context) => HomeAdmin(),
+    // When navigating to the "/second" route, build the SecondScreen widget.
+    '/student': (context) => HomeStudent(),
+  },
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flight_training/models/user_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -121,128 +122,14 @@ class _HomeAdminState extends State<HomeAdmin> {
               },
             ),
             Container(
+             
               child: Expanded(
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(7.0),
-                      child: Stack(children: <Widget>[
-                        Column(children: <Widget>[
-                          SizedBox(height: 10),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 5,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topRight,
-                                  end: Alignment.bottomLeft,
-                                  colors: [
-                                    Colors.greenAccent,
-                                    Colors.lightBlueAccent
-                                  ],
-                                )),
-                          ),
-                        ]),
-                        Positioned(
-                          child: Container(
-                              padding: EdgeInsets.all(0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.red,
-                              ),
-                              child: ClipOval(
-                                child: Material(
-                                  color: Colors.red, // button color
-                                  child: InkWell(
-                                    splashColor:
-                                        Colors.redAccent, // inkwell color
-                                    child: SizedBox(
-                                        width: 25,
-                                        height: 25,
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.white,
-                                        )),
-                                    onTap: () {
-                                      //TODO close button
-                                      print("close button pressed");
-                                    },
-                                  ),
-                                ),
-                              )),
-                          top: 0,
-                          right: 10,
-                        ),
-                        Positioned(
-                          child: Text(
-                            "Take Off",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.juliusSansOne(
-                                textStyle: Theme.of(context).textTheme.display1,
-                                fontSize: 40,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white),
-                          ),
-                          top: 20,
-                          left: 10,
-                        ),
-                        Positioned(
-                          child: Text(
-                            "Sunil Perera - Lv1",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.dosis(
-                                textStyle: Theme.of(context).textTheme.display1,
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white),
-                          ),
-                          bottom: 30,
-                          left: 20,
-                        ),
-                        Positioned(
-                          child: Text(
-                            "961245982V",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.dosis(
-                                textStyle: Theme.of(context).textTheme.display1,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white),
-                          ),
-                          bottom: 15,
-                          left: 20,
-                        ),
-                        Positioned(
-                          child: Center(
-                            child: RaisedButton.icon(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.white)),
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.timer,
-                                color: Colors.white,
-                              ),
-                              label: Text(
-                                "Add Time",
-                                style: GoogleFonts.dosis(
-                                    textStyle:
-                                        Theme.of(context).textTheme.display1,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              color: Colors.blue,
-                            ),
-                          ),
-                          bottom: 15,
-                          right: 20,
-                        )
-                      ]),
-                    ),
-                    Placeholder(),
+                    LessonsBooking(),
+                    LessonsBooking(),
+                    LessonsBooking(),
                   ],
                 ),
               ),
@@ -252,5 +139,144 @@ class _HomeAdminState extends State<HomeAdmin> {
         flex: 2,
       )
     ]));
+  }
+}
+
+class LessonsBooking extends StatelessWidget {
+  const LessonsBooking({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(7.0),
+      child: Stack(children: <Widget>[
+        Column(children: <Widget>[
+          SizedBox(height: 10),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.blueAccent, Colors.blue],
+              ),
+            ),
+          ),
+        ]),
+        Positioned(
+          child: Container(
+              padding: EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.red,
+              ),
+              child: ClipOval(
+                child: Material(
+                  color: Colors.red, // button color
+                  child: InkWell(
+                    splashColor: Colors.redAccent, // inkwell color
+                    child: SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )),
+                    onTap: () {
+                      //TODO close button
+                      print("close button pressed");
+                    },
+                  ),
+                ),
+              )),
+          top: 0,
+          right: 10,
+        ),
+        Positioned(
+          child: Container(
+            child: Chip(
+              backgroundColor: Colors.white60,
+              label: Text("04:30",style: TextStyle(color: Colors.blue),),
+            ),
+          ),
+          top: -10,
+          right: 60,
+        ),
+        Positioned(
+          child: Text(
+            "Take Off",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.juliusSansOne(
+                textStyle: Theme.of(context).textTheme.display1,
+                fontSize: 40,
+                fontWeight: FontWeight.normal,
+                color: Colors.white),
+          ),
+          top: 20,
+          left: 10,
+        ),
+        Positioned(
+          child: Text(
+            "Sunil Perera - Lv1",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.dosis(
+                textStyle: Theme.of(context).textTheme.display1,
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: Colors.white),
+          ),
+          bottom: 30,
+          left: 20,
+        ),
+        Positioned(
+          child: Text(
+            "961245982V",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.dosis(
+                textStyle: Theme.of(context).textTheme.display1,
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+                color: Colors.white),
+          ),
+          bottom: 15,
+          left: 20,
+        ),
+        Positioned(
+          child: Center(
+            child: RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                onPressed: () {
+                  DatePicker.showTimePicker(context, showTitleActions: true,
+                      onChanged: (date) {
+                    print(date.hour);
+                  }, onConfirm: (date) {
+                    print('confirm $date');
+                  }, currentTime: DateTime.now(), locale: LocaleType.en);
+                },
+                icon: Icon(
+                  Icons.timer,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  "Add Time",
+                  style: GoogleFonts.dosis(
+                      textStyle: Theme.of(context).textTheme.display1,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                color: Colors.white),
+          ),
+          bottom: 15,
+          right: 20,
+        )
+      ]),
+    );
   }
 }

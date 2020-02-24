@@ -122,7 +122,6 @@ class _HomeAdminState extends State<HomeAdmin> {
               },
             ),
             Container(
-             
               child: Expanded(
                 child: ListView(
                   scrollDirection: Axis.vertical,
@@ -147,6 +146,23 @@ class LessonsBooking extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return LessonView();
+  }
+}
+
+class LessonView extends StatefulWidget {
+  const LessonView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _LessonViewState createState() => _LessonViewState();
+}
+
+class _LessonViewState extends State<LessonView> {
+  String time = "Set Time";
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -198,9 +214,25 @@ class LessonsBooking extends StatelessWidget {
         ),
         Positioned(
           child: Container(
-            child: Chip(
-              backgroundColor: Colors.white60,
-              label: Text("04:30",style: TextStyle(color: Colors.blue),),
+            child: InkWell(
+              splashColor: Colors.blueAccent,
+              onTap: () {
+                DatePicker.showTimePicker(context, showTitleActions: true,
+                    onChanged: (date) {
+                  // print(date.hour);
+                }, onConfirm: (date) {
+                  setState(() {
+                    time = date.hour.toString() + ":" + date.minute.toString();
+                  });
+                }, currentTime: DateTime.now(), locale: LocaleType.en);
+              },
+              child: Chip(
+                backgroundColor: Colors.white60,
+                label: Text(
+                  time == "Set Time" ? "Set Time" : time,
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
             ),
           ),
           top: -10,
@@ -251,20 +283,13 @@ class LessonsBooking extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(18.0),
                 ),
-                onPressed: () {
-                  DatePicker.showTimePicker(context, showTitleActions: true,
-                      onChanged: (date) {
-                    print(date.hour);
-                  }, onConfirm: (date) {
-                    print('confirm $date');
-                  }, currentTime: DateTime.now(), locale: LocaleType.en);
-                },
+                onPressed: () {},
                 icon: Icon(
-                  Icons.timer,
+                  Icons.golf_course,
                   color: Colors.black,
                 ),
                 label: Text(
-                  "Add Time",
+                  "Start",
                   style: GoogleFonts.dosis(
                       textStyle: Theme.of(context).textTheme.display1,
                       fontSize: 15,

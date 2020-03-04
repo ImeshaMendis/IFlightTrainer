@@ -19,7 +19,33 @@ class _AdminLessonViewState extends State<AdminLessonView> {
       ),
       body: StreamProvider<UserLocation>(
         create: (context) => LocationService().locationStream,
-        child: Map(),
+        child: Column(
+          children: <Widget>[
+             Expanded(
+              child:Placeholder(),
+              flex: 1,
+            ),
+            Expanded(
+              child:Map(),
+              flex: 1,
+            ),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child:Placeholder(),
+                    flex: 1,
+                  ),
+                  Expanded(
+                    child: Placeholder(),
+                    flex: 1,
+                  )
+                ],
+              ),
+              flex: 1,
+            )
+          ],
+        ),
       ),
     );
   }

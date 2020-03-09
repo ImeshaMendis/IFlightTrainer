@@ -5,9 +5,9 @@ import 'package:flight_training/services/mcq_service.dart';
 
 // random 10 mcq list
 class McqGenerator {
-  static Future<List<Q>> getRandomTenMcqs() async {
+  static Future<List<Q>> genRandomMcqs() async {
     try {
-      final jsonData = jsonDecode(await McqService.loadAsset()) as List;
+      final jsonData = jsonDecode(await McqService().loadAsset()) as List;
       List<Q> qList = jsonData.map((q) => Q.fromJson(q)).toList();
       List<Q> randomQList = [];
       List list = List.generate(qList.length, (i) => i);

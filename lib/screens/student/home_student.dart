@@ -1,6 +1,10 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
+import 'package:flight_training/services/mcq_service.dart';
+import 'package:flight_training/widgets/mcq_pannel.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(HomeStudent());
 
@@ -8,6 +12,7 @@ class HomeStudent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Circular Bottom Navigation Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -31,10 +36,14 @@ class _HomePageState extends State<HomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+    new TabItem(Icons.home, "Home", Colors.blueAccent,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    new TabItem(Icons.assignment, "EXAMS", Colors.blueAccent,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    new TabItem(Icons.flight, "Tranings", Colors.blueAccent,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    new TabItem(Icons.person, "Profile", Colors.blueAccent,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
   ]);
 
   CircularBottomNavigationController _navigationController;
@@ -47,75 +56,434 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget bodyContainer(BuildContext context) {
+      switch (selectedPos) {
+        case 0:
+          return Text("data");
+          break;
+        case 1:
+          return StreamProvider(
+            child: Column(
+              children: <Widget>[
+                // Expanded(
+                //     child: Center(
+                //       child: RaisedButton(
+                //         child: Text("Pressme"),
+                //         onPressed: () {
+                //           McqService.getRandomMcqs();
+                //         },
+                //       ),
+                //     ),
+                //     flex: 1),
+                // Expanded(
+                //   child: McqPannel(),
+                //   flex: 2,
+                // )
+
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 11 / 12,
+                  color: Colors.lightBlue,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 15,
+                      ),
+                      Text(
+                        "Question Bank",
+                        style: GoogleFonts.juliusSansOne(
+                            textStyle: Theme.of(context).textTheme.display1,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Divider(
+                          thickness: 1.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Expanded(
+                          child: GridView.count(
+                        primary: false,
+                        padding: const EdgeInsets.all(20),
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        children: <Widget>[
+                         InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Metrology",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.healing,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Human Performance And Limitations",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.map,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Navigation",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                         InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.headset,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Communication",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+
+
+                         
+                        InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.swap_calls,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text(" Flight Planning",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                           InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.flight_takeoff,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Principles of Flight",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                           InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.flight,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Aircraft General Knowledge",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                           InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.lightBlueAccent,
+                                      blurRadius:
+                                          20.0, // has the effect of softening the shadow
+                                      spreadRadius:
+                                          5.0, // has the effect of extending the shadow
+                                      offset: Offset(
+                                        10.0, // horizontal, move right 10
+                                        10.0, // vertical, move down 10
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.blue),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.book,
+                                    size: 50,
+                                    color: Colors.white,
+                                  ),
+                                  Text("Airlaw",
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white))
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            create: (BuildContext context) => McqService().mcqStream,
+          );
+
+          break;
+        case 2:
+          return Text("ads");
+
+          break;
+        case 3:
+          return Text("54home");
+
+          break;
+      }
+    }
+
+    Widget bottomNav(BuildContext context) {
+      return CircularBottomNavigation(
+        tabItems,
+        controller: _navigationController,
+        barHeight: MediaQuery.of(context).size.height / 12,
+        barBackgroundColor: Colors.white,
+        animationDuration: Duration(milliseconds: 300),
+        selectedCallback: (int selectedPos) {
+          setState(() {
+            this.selectedPos = selectedPos;
+            print(_navigationController.value);
+          });
+        },
+      );
+    }
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
-          Align(alignment: Alignment.bottomCenter, child: bottomNav())
+          Padding(
+            child: bodyContainer(context),
+            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: bottomNav(context),
+          )
         ],
       ),
     );
-  }
 
-  Widget bodyContainer() {
-    Color selectedColor = tabItems[selectedPos].circleColor;
-    String slogan;
-    switch (selectedPos) {
-      case 0:
-        slogan = "Familly, Happiness, Food";
-        break;
-      case 1:
-        slogan = "Find, Check, Use";
-        break;
-      case 2:
-        slogan = "Receive, Review, Rip";
-        break;
-      case 3:
-        slogan = "Noise, Panic, Ignore";
-        break;
+    @override
+    void dispose() {
+      super.dispose();
+      _navigationController.dispose();
     }
-
-    return GestureDetector(
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: selectedColor,
-        child: Center(
-          child: Text(
-            slogan,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-        ),
-      ),
-      onTap: () {
-        if (_navigationController.value == tabItems.length - 1) {
-          _navigationController.value = 0;
-        } else {
-          _navigationController.value++;
-        }
-      },
-    );
-  }
-
-  Widget bottomNav() {
-    return CircularBottomNavigation(
-      tabItems,
-      controller: _navigationController,
-      barHeight: bottomNavBarHeight,
-      barBackgroundColor: Colors.white,
-      animationDuration: Duration(milliseconds: 300),
-      selectedCallback: (int selectedPos) {
-        setState(() {
-          this.selectedPos = selectedPos;
-          print(_navigationController.value);
-        });
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _navigationController.dispose();
   }
 }

@@ -63,382 +63,379 @@ class _HomePageState extends State<HomePage> {
           return Text("data");
           break;
         case 1:
-          return StreamProvider(
-            child: Column(
-              children: <Widget>[
-                // Expanded(
-                //     child: Center(
-                //       child: RaisedButton(
-                //         child: Text("Pressme"),
-                //         onPressed: () {
-                //           McqService.getRandomMcqs();
-                //         },
-                //       ),
-                //     ),
-                //     flex: 1),
-                // Expanded(
-                //   child: McqPannel(),
-                //   flex: 2,
-                // )
+          return Column(
+            children: <Widget>[
+              // Expanded(
+              //     child: Center(
+              //       child: RaisedButton(
+              //         child: Text("Pressme"),
+              //         onPressed: () {
+              //           McqService.getRandomMcqs();
+              //         },
+              //       ),
+              //     ),
+              //     flex: 1),
+              // Expanded(
+              //   child: McqPannel(),
+              //   flex: 2,
+              // )
 
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 11 / 12,
-                  color: Colors.lightBlue,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 15,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 11 / 12,
+                color: Colors.lightBlue,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 15,
+                    ),
+                    Text(
+                      "Question Bank",
+                      style: GoogleFonts.juliusSansOne(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Divider(
+                        thickness: 1.0,
+                        color: Colors.white,
                       ),
-                      Text(
-                        "Question Bank",
-                        style: GoogleFonts.juliusSansOne(
-                            textStyle: Theme.of(context).textTheme.display1,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Divider(
-                          thickness: 1.0,
-                          color: Colors.white,
+                    ),
+                    Expanded(
+                        child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => ModalButton(),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.ac_unit,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Metrology",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                          child: GridView.count(
-                        primary: false,
-                        padding: const EdgeInsets.all(20),
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        crossAxisCount: 2,
-                        children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) => ModalButton(),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.ac_unit,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Metrology",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.healing,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Human Performance And Limitations",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.healing,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Human Performance And Limitations",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.map,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Navigation",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.map,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Navigation",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.headset,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Communication",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.headset,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Communication",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.swap_calls,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text(" Flight Planning",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.swap_calls,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text(" Flight Planning",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.flight_takeoff,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Principles of Flight",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.flight_takeoff,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Principles of Flight",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.flight,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Aircraft General Knowledge",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.flight,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Aircraft General Knowledge",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
+                        ),
+                        InkWell(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.lightBlueAccent,
+                                    blurRadius:
+                                        20.0, // has the effect of softening the shadow
+                                    spreadRadius:
+                                        5.0, // has the effect of extending the shadow
+                                    offset: Offset(
+                                      10.0, // horizontal, move right 10
+                                      10.0, // vertical, move down 10
+                                    ),
+                                  )
                                 ],
-                              ),
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.book,
+                                  size: 50,
+                                  color: Colors.white,
+                                ),
+                                Text("Airlaw",
+                                    style: GoogleFonts.juliusSansOne(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .display1,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white))
+                              ],
                             ),
                           ),
-                          InkWell(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.lightBlueAccent,
-                                      blurRadius:
-                                          20.0, // has the effect of softening the shadow
-                                      spreadRadius:
-                                          5.0, // has the effect of extending the shadow
-                                      offset: Offset(
-                                        10.0, // horizontal, move right 10
-                                        10.0, // vertical, move down 10
-                                      ),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.blue),
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.book,
-                                    size: 50,
-                                    color: Colors.white,
-                                  ),
-                                  Text("Airlaw",
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white))
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ))
-                    ],
-                  ),
-                )
-              ],
-            ),
-            create: (BuildContext context) => McqService().mcqStream,
+                        ),
+                      ],
+                    ))
+                  ],
+                ),
+              )
+            ],
           );
 
           break;

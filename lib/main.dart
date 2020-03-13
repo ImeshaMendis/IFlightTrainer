@@ -1,7 +1,8 @@
 import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/screens/admin/home_admin.dart';
-import 'package:flight_training/screens/admin/home_student.dart';
+import 'package:flight_training/screens/exam.dart';
 import 'package:flight_training/screens/login.dart';
+import 'package:flight_training/screens/student/home_student.dart';
 import 'package:flight_training/services/location_service.dart';
 import 'package:flight_training/widgets/map_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class FlightApp extends StatelessWidget {
           '/admin': (context) => HomeAdmin(),
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/student': (context) => HomeStudent(),
-          '/admin_lesson_view': (context) => AdminLessonView()
+          '/admin_lesson_view': (context) => AdminLessonView(),
+          '/start_exam':(context)=>Exam()
         },
       
     );

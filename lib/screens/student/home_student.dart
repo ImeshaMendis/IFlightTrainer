@@ -1,6 +1,7 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flight_training/services/mcq_service.dart';
 import 'package:flight_training/widgets/mcq_pannel.dart';
+import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -112,7 +113,13 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSpacing: 10,
                         crossAxisCount: 2,
                         children: <Widget>[
-                         InkWell(
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => ModalButton(),
+                              );
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -229,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                         InkWell(
+                          InkWell(
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -268,10 +275,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-
-
-                         
-                        InkWell(
+                          InkWell(
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -310,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                           InkWell(
+                          InkWell(
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -349,7 +353,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                           InkWell(
+                          InkWell(
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -388,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                           InkWell(
+                          InkWell(
                             child: Container(
                               decoration: BoxDecoration(
                                   boxShadow: [
@@ -470,7 +474,8 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Padding(
             child: bodyContainer(context),
-            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height / 12),
           ),
           Align(
             alignment: Alignment.bottomCenter,

@@ -46,7 +46,7 @@ class ModalButtonState extends State<ModalButton>
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: MediaQuery.of(context).size.height/20,
+                    height: MediaQuery.of(context).size.height / 20,
                   ),
                   Text(
                     "MockExams",
@@ -60,7 +60,10 @@ class ModalButtonState extends State<ModalButton>
                     color: Colors.black45,
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    onPressed: () {},
+                    onPressed: () {
+                      print("Pressed");
+                      Navigator.pushNamed(context, '/start_exam');
+                    },
                     child: Text("Start",
                         style: GoogleFonts.juliusSansOne(
                             textStyle: Theme.of(context).textTheme.display1,

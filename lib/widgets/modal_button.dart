@@ -61,7 +61,7 @@ class ModalButtonState extends State<ModalButton>
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () {
-                      print("Pressed");
+                     
                       Navigator.pushNamed(context, '/start_exam');
                     },
                     child: Text("Start",

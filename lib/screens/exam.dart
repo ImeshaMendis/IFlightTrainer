@@ -1,4 +1,6 @@
+import 'package:flight_training/models/q.dart';
 import 'package:flight_training/services/mcq_service.dart';
+import 'package:flight_training/services/result_service.dart';
 import 'package:flight_training/widgets/mcq_pannel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +22,15 @@ class _ExamState extends State<Exam> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: StreamProvider(
+        color: Colors.blue,
+        child: MultiProvider(
           child: McqPannel(),
-          create: (BuildContext context)=>McqService().mcqStream,
+          providers: [
+            StreamProvider<List<Q>>(
+                create: (context) => McqService().mcqStream),
+            StreamProvider<int>(
+                create: (context) => ResultService().resultStream),
+          ],
         ),
       ),
     );

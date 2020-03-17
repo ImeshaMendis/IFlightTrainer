@@ -70,9 +70,8 @@ class _LoginState extends State<Login> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       color: Colors.white,
-                      onPressed: () =>{
-                         Navigator.pushNamed(context, '/student')
-                      },
+                      onPressed: () =>
+                          {Navigator.pushNamed(context, '/student')},
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20.0,
@@ -112,10 +111,7 @@ class _LoginState extends State<Login> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       color: Colors.white,
-                      onPressed: ()=>{
-                         Navigator.pushNamed(context, '/admin')
-
-                      },
+                      onPressed: () => {Navigator.pushNamed(context, '/admin')},
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20.0,
@@ -150,4 +146,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-

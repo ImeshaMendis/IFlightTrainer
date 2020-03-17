@@ -1,11 +1,8 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
-import 'package:flight_training/services/mcq_service.dart';
-import 'package:flight_training/widgets/mcq_pannel.dart';
 import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 void main() => runApp(HomeStudent());
 
@@ -65,21 +62,6 @@ class _HomePageState extends State<HomePage> {
         case 1:
           return Column(
             children: <Widget>[
-              // Expanded(
-              //     child: Center(
-              //       child: RaisedButton(
-              //         child: Text("Pressme"),
-              //         onPressed: () {
-              //           McqService.getRandomMcqs();
-              //         },
-              //       ),
-              //     ),
-              //     flex: 1),
-              // Expanded(
-              //   child: McqPannel(),
-              //   flex: 2,
-              // )
-
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 11 / 12,

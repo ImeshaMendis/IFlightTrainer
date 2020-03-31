@@ -1,0 +1,7 @@
+enum LessonState {
+  PENDING,
+  APPROVED,
+  DECLINED,
+  RUNNING,
+  COMPLETED
+}

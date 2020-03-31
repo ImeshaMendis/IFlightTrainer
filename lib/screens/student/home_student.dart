@@ -1,8 +1,15 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flight_training/services/firebase_service.dart';
+import 'package:flight_training/utils/states.dart';
+import 'package:flight_training/widgets/alert_dilalog.dart';
 import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 
 void main() => runApp(HomeStudent());
 
@@ -30,17 +37,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedPos = 0;
+  bool _loading = false;
 
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blueAccent,
+    TabItem(Icons.home, "Home", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.assignment, "EXAMS", Colors.blueAccent,
+    TabItem(Icons.assignment, "EXAMS", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.flight, "Tranings", Colors.blueAccent,
+    TabItem(Icons.flight, "Tranings", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.person, "Profile", Colors.blueAccent,
+    TabItem(Icons.person, "Profile", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
   ]);
 
@@ -49,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _navigationController = new CircularBottomNavigationController(selectedPos);
+    _navigationController = CircularBottomNavigationController(selectedPos);
   }
 
   @override
@@ -422,11 +430,174 @@ class _HomePageState extends State<HomePage> {
 
           break;
         case 2:
-          return Text("ads");
+          return Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 11 / 12,
+                color: Colors.lightBlue,
+                child: Column(children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        child: Text(
+                          "Tranings",
+                          style: GoogleFonts.juliusSansOne(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: LoadingOverlay(
+                          child: InkWell(
+                            onTap: () async {
+                              _loading = true;
+                              getAvailbeDates().then((dateList) async {
+                                _loading = false;
+                                try {
+                                  DateTime newDateTime =
+                                      await showRoundedDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    lastDate: DateTime(DateTime.now().year + 1),
+                                    firstDate:
+                                        DateTime(DateTime.now().year - 1),
+                                    borderRadius: 16,
+                                    textPositiveButton: "BOOK",
+                                    builderDay: (DateTime dateTime,
+                                        bool isCurrentDay,
+                                        bool isSelected,
+                                        TextStyle defaultTextStyle) {
+                                      for (var date in dateList) {
+                                        if (dateTime.day == int.parse(date)) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.pink[300],
+                                                    width: 4),
+                                                shape: BoxShape.circle),
+                                            child: Center(
+                                              child: Text(
+                                                dateTime.day.toString(),
+                                                style: defaultTextStyle,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      }
+                                    },
+                                  );
+                                  if (newDateTime.day != null) {
+                                    if (dateList
+                                        .contains(newDateTime.day.toString())) {
+                                      Firestore.instance
+                                          .collection('lesson')
+                                          .document()
+                                          .setData(
+                                        {
+                                          'date': newDateTime.day.toString(),
+                                          'state': "PENDING",
+                                        },
+                                      );
+                                      Fluttertoast.showToast(
+                                          msg: "Booked Successfully",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg: "Please Select Availble Date",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    }
+                                  }
+                                } catch (e) {
+                                  print(e.toString());
+                                }
+                              });
+                            },
+                            child: Chip(
+                              backgroundColor: Colors.white,
+                              label: Text("Reserve",
+                                  style: GoogleFonts.juliusSansOne(
+                                      textStyle:
+                                          Theme.of(context).textTheme.display1,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.blue)),
+                            ),
+                          ),
+                          isLoading: _loading,
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Divider(
+                      thickness: 1.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream:
+                          Firestore.instance.collection('lesson').snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError)
+                          return Text('Error: ${snapshot.error}');
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Text('Loading...');
+                          default:
+                            return ListView(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              children: snapshot.data.documents
+                                  .map((DocumentSnapshot document) {
+                                return lessonCardBuilder(
+                                    context: context,
+                                    documentSnapshot: document);
+                              }).toList(),
+                            );
+                        }
+                      },
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          );
 
           break;
         case 3:
-          return Text("54home");
+          return Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 11 / 12,
+                color: Colors.lightBlue,
+              )
+            ],
+          );
 
           break;
       }
@@ -469,5 +640,92 @@ class _HomePageState extends State<HomePage> {
       super.dispose();
       _navigationController.dispose();
     }
+  }
+
+  Padding lessonCardBuilder(
+      {BuildContext context, DocumentSnapshot documentSnapshot}) {
+    return Padding(
+      padding: const EdgeInsets.all(14.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 5,
+        child: Stack(
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Take Off",
+                    style: GoogleFonts.juliusSansOne(
+                        textStyle: Theme.of(context).textTheme.display1,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blue),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: documentSnapshot['state'] == "APPROVED"
+                        ? Text(
+                            "2019/04/" +
+                                documentSnapshot['date'] +
+                                " " +
+                                documentSnapshot['time'].toString(),
+                            style: GoogleFonts.juliusSansOne(
+                                textStyle: Theme.of(context).textTheme.display1,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blueGrey),
+                          )
+                        : Text("")),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Chip(
+                    label: Text(documentSnapshot['state'].toString()),
+                  ),
+                )
+              ],
+            ),
+            if (documentSnapshot['state'] == "PENDING")
+              Positioned(
+                right: 10,
+                top: -10,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.red,
+                  ),
+                  onPressed: () async {
+                    await Firestore.instance
+                        .collection('lesson')
+                        .document(documentSnapshot.documentID)
+                        .delete();
+                  },
+                ),
+              ),
+            if (documentSnapshot['state'] == "DECLINED")
+              Positioned(
+                right: 10,
+                top: -10,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.note,
+                    color: Colors.red,
+                  ),
+                  onPressed: () async {
+                    await notice(context, documentSnapshot);
+                  },
+                ),
+              )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -46,7 +46,7 @@ class _McqPannelState extends State<McqPannel> {
   @override
   Widget build(BuildContext context) {
     List<Q> mcqList = Provider.of<List<Q>>(context);
-    int result = Provider.of<int>(context);
+   // int result = Provider.of<int>(context);
 
     _getCorrectAnswers(mcqList);
     return (mcqList == null)

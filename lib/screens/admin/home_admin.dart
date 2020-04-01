@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flight_training/services/date_pass_service.dart';
+import 'package:flight_training/widgets/reject_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -160,7 +161,16 @@ class AdminBooking extends StatelessWidget {
               case ConnectionState.active:
                 return snapshot.data.documents.length == 0
                     ? ZeroBookings(date: Provider.of<int>(context).toString())
-                    : Text("Bookings");
+                    : ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: snapshot.data.documents
+                            .map((DocumentSnapshot document) {
+                          return LessonsBooking(
+                            snapshot: document,
+                          );
+                        }).toList(),
+                      );
               case ConnectionState.done:
                 return Text('\$${snapshot.data} (closed)');
             }
@@ -303,27 +313,35 @@ class ZeroBookings extends StatelessWidget {
 }
 
 class LessonsBooking extends StatelessWidget {
-  const LessonsBooking({
+  DocumentSnapshot snapshot;
+  LessonsBooking({
     Key key,
+    this.snapshot,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return LessonView();
+    return LessonView(
+      snapshot: this.snapshot,
+    );
   }
 }
 
 class LessonView extends StatefulWidget {
-  const LessonView({
-    Key key,
-  }) : super(key: key);
+  DocumentSnapshot snapshot;
+  LessonView({Key key, this.snapshot}) : super(key: key);
 
   @override
-  _LessonViewState createState() => _LessonViewState();
+  _LessonViewState createState() => _LessonViewState(this.snapshot);
 }
 
 class _LessonViewState extends State<LessonView> {
+  DocumentSnapshot snapshot;
   String time = "Set Time";
+  _LessonViewState(DocumentSnapshot snap) {
+    this.snapshot = snap;
+    this.time = snap.data['time'];
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -366,7 +384,7 @@ class _LessonViewState extends State<LessonView> {
                           )),
                       onTap: () {
                         //TODO close button
-                        print("close button pressed");
+                        rejectnotice(context, snapshot);
                       },
                     ),
                   ),
@@ -386,6 +404,13 @@ class _LessonViewState extends State<LessonView> {
                     setState(() {
                       time =
                           date.hour.toString() + ":" + date.minute.toString();
+                      Firestore.instance
+                          .collection('lesson')
+                          .document(snapshot.documentID)
+                          .updateData(
+                              {"time": time.toString(), "state": "APPROVED"});
+
+                      ///
                     });
                   }, currentTime: DateTime.now(), locale: LocaleType.en);
                 },
@@ -416,7 +441,20 @@ class _LessonViewState extends State<LessonView> {
           ),
           Positioned(
             child: Text(
-              "Sunil Perera - Lv1",
+              "2020/04/" + snapshot.data['date'],
+              textAlign: TextAlign.center,
+              style: GoogleFonts.juliusSansOne(
+                  textStyle: Theme.of(context).textTheme.display1,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            bottom: 60,
+            left: 20,
+          ),
+          Positioned(
+            child: Text(
+              "Imesha Mendis - Lv1",
               textAlign: TextAlign.center,
               style: GoogleFonts.dosis(
                   textStyle: Theme.of(context).textTheme.display1,

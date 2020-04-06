@@ -507,7 +507,7 @@ class _HomePageState extends State<HomePage> {
                                         {
                                           'date': newDateTime.day.toString(),
                                           'state': "PENDING",
-                                          'date':"Set Time"
+                                          'time':"Set Time"
                                         },
                                       );
                                       Fluttertoast.showToast(

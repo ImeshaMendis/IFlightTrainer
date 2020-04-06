@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1059084869086",
+    "firebase_url": "https://iflighttrainer.firebaseio.com",
+    "project_id": "iflighttrainer",
+    "storage_bucket": "iflighttrainer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059084869086:android:2b45239b64b9852897d14f",
+        "android_client_info": {
+          "package_name": "com.example.flight_training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059084869086-53c0spuspqkkqsch09ha17vs7upu7io4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flight_training",
+            "certificate_hash": "f614f7d1a50ecc0e9b104999970693ca08942fab"
+          }
+        },
+        {
+          "client_id": "1059084869086-h7ih9nd1a4unv7vmtcovm29h1m97lel5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHSyoEVz37c2V4-LWW1yQk8O-dQ3KZpxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059084869086-h7ih9nd1a4unv7vmtcovm29h1m97lel5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

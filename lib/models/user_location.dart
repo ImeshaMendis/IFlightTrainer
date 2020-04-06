@@ -3,5 +3,6 @@ class UserLocation {
   final double longitude;
   final double altitude;
   final double speed;
-  UserLocation({this.altitude, this.speed, this.latitude, this.longitude});
+  final double head;
+  UserLocation({this.head, this.altitude, this.speed, this.latitude, this.longitude});
 }

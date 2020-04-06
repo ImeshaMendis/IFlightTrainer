@@ -1,5 +1,6 @@
 import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/screens/admin/home_admin.dart';
+import 'package:flight_training/screens/charts/result_chart.dart';
 import 'package:flight_training/screens/exam.dart';
 import 'package:flight_training/screens/login.dart';
 import 'package:flight_training/screens/student/home_student.dart';
@@ -25,23 +26,9 @@ class FlightApp extends StatelessWidget {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/student': (context) => HomeStudent(),
         '/admin_lesson_view': (context) => AdminLessonView(),
-        '/start_exam': (context) => Exam()
+        '/start_exam': (context) => Exam(),
+        '/result_chart': (context) => ResultChart()
       },
     );
   }
 }
-
-/*
-
-StreamProvider<UserLocation>(
-      create: (context) => LocationService().locationStream,
-      child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: Scaffold(
-            body: Map(),
-          )),
-    );
-*/

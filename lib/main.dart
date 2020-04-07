@@ -27,7 +27,8 @@ class FlightApp extends StatelessWidget {
         '/student': (context) => HomeStudent(),
         '/admin_lesson_view': (context) => AdminLessonView(),
         '/start_exam': (context) => Exam(),
-        '/result_chart': (context) => ResultChart()
+        '/result_chart': (context) => ResultChart(),
+        '/log_out':(context)=>Login(),
       },
     );
   }

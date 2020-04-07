@@ -7,6 +7,7 @@ import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -507,7 +508,7 @@ class _HomePageState extends State<HomePage> {
                                         {
                                           'date': newDateTime.day.toString(),
                                           'state': "PENDING",
-                                          'time':"Set Time"
+                                          'time': "Set Time"
                                         },
                                       );
                                       Fluttertoast.showToast(
@@ -596,7 +597,387 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 11 / 12,
                 color: Colors.lightBlue,
-                
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 70),
+                        child: Text(
+                          "Imesha Mendis",
+                          style: GoogleFonts.juliusSansOne(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: CircleAvatar(
+                          radius: 40,
+                          child: CircleAvatar(
+                            radius: 35,
+                            backgroundImage:
+                                AssetImage("lib/assets/images/avatar.png"),
+                          ),
+                        ),
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Material(
+                          color: Colors.white,
+                          elevation: 14.0,
+                          borderRadius: BorderRadius.circular(24.0),
+                          shadowColor: Color(0x802196F3),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "SPL ID",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "SPL/A/1132",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "SPL Expiration Date",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "01/02/2020",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "Medical Expiration Date",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "04/03/2020",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "NIB Clearance Expiration Date",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "04/04/2020",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Text(
+                                            "NIC No",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "199451601833",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "First Solo Hour",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "30.5",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "Training Start Date",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "02/03/2013",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "Instructor Name",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            "Trevor Eardly",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: RaisedButton(
+                                      color: Colors.blueAccent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(18.0),
+                                      ),
+                                      child: Text(
+                                        "LOGOUT",
+                                        style: GoogleFonts.juliusSansOne(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .display1,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/log_out');
+                                      },
+                                    ),
+                                  ),
+                                  flex: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      flex: 4,
+                    )
+                  ],
+                ),
               )
             ],
           );

@@ -20,8 +20,8 @@ class ResultModalState extends State<ResultModal>
 
   Map<String, double> dataMap = Map();
   List<Color> colorList = [
-    Colors.lightBlueAccent,
-    Colors.blue,
+    Colors.white,
+    Colors.grey,
   ];
 
   ResultModalState(this.result);
@@ -60,7 +60,7 @@ class ResultModalState extends State<ResultModal>
                     borderRadius: BorderRadius.circular(15.0))),
             child: Padding(
               padding: const EdgeInsets.all(40.0),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   Text("Results",
                       style: GoogleFonts.juliusSansOne(
@@ -69,7 +69,7 @@ class ResultModalState extends State<ResultModal>
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 20,
+                    height: MediaQuery.of(context).size.height / 30,
                   ),
                   PieChart(
                       dataMap: dataMap,

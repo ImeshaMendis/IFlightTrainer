@@ -10,7 +10,7 @@ Future<void> rejectnotice(
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('PLEASE ADD A REJCT NOTE'),
+        title: Text('PLEASE ADD A REJECT NOTE'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[

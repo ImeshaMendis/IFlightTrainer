@@ -32,7 +32,6 @@ class MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     var userLocation = Provider.of<UserLocation>(context);
-
     return new Scaffold(
       body: Center(
         child: Stack(
@@ -63,7 +62,7 @@ class MapState extends State<Map> {
                 top: 5,
                 left: 5,
                 child: Text(
-                  "Height:" + userLocation.altitude.toString() + "m",
+                  "Height:" + userLocation.altitude.round().toString() + "m",
                   style: GoogleFonts.juliusSansOne(
                       textStyle: Theme.of(context).textTheme.display1,
                       fontSize: 15,
@@ -74,7 +73,7 @@ class MapState extends State<Map> {
                 top: 5,
                 right: 5,
                 child: Text(
-                  "Head:" + userLocation.head.toString(),
+                  "Head:" + userLocation.head.round().toString(),
                   style: GoogleFonts.juliusSansOne(
                       textStyle: Theme.of(context).textTheme.display1,
                       fontSize: 15,

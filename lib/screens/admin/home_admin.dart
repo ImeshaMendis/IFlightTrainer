@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/services/date_pass_service.dart';
+import 'package:flight_training/services/user_pass_service.dart';
 import 'package:flight_training/widgets/reject_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -175,25 +177,6 @@ class AdminBooking extends StatelessWidget {
                 return Text('\$${snapshot.data} (closed)');
             }
             return null; // unreachable
-
-            // if (snapshot.hasError) {
-            //   return Text("error");
-            // }
-            // if (snapshot.hasData) {
-            //   return Text(snapshot.data.documents.length.toString());
-            // } else {
-            //   return Center(
-            //     child: CircularProgressIndicator(),
-            //   );
-            // }
-            // return ListView(
-            //   scrollDirection: Axis.vertical,
-            //   children: <Widget>[
-            //     LessonsBooking(),
-            //     LessonsBooking(),
-            //     LessonsBooking(),
-            //   ],
-            // );
           },
         ),
       ),
@@ -478,31 +461,41 @@ class _LessonViewState extends State<LessonView> {
             bottom: 15,
             left: 20,
           ),
-          Positioned(
-            child: Center(
-              child: RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/admin_lesson_view');
-                  },
-                  icon: Icon(
-                    Icons.golf_course,
-                    color: Colors.black,
-                  ),
-                  label: Text(
-                    "Start",
-                    style: GoogleFonts.dosis(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  color: Colors.white),
+          StreamProvider<DocumentSnapshot>.value(
+            child: Positioned(
+              child: Center(
+                child: RaisedButton.icon(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+                    ),
+                    onPressed: () {
+                      UserPassService.addUser(snapshot);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AdminLessonView(id: snapshot.documentID),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.golf_course,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      "Start",
+                      style: GoogleFonts.dosis(
+                          textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    color: Colors.white),
+              ),
+              bottom: 15,
+              right: 20,
             ),
-            bottom: 15,
-            right: 20,
+            value: UserPassService().userPassStream,
           )
         ],
       ),

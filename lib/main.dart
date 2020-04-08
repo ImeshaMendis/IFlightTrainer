@@ -4,13 +4,7 @@ import 'package:flight_training/screens/charts/result_chart.dart';
 import 'package:flight_training/screens/exam.dart';
 import 'package:flight_training/screens/login.dart';
 import 'package:flight_training/screens/student/home_student.dart';
-import 'package:flight_training/services/date_pass_service.dart';
-import 'package:flight_training/services/location_service.dart';
-import 'package:flight_training/widgets/map_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'models/user_location.dart';
 
 void main() => runApp(FlightApp());
 
@@ -28,7 +22,7 @@ class FlightApp extends StatelessWidget {
         '/admin_lesson_view': (context) => AdminLessonView(),
         '/start_exam': (context) => Exam(),
         '/result_chart': (context) => ResultChart(),
-        '/log_out':(context)=>Login(),
+        '/log_out': (context) => Login(),
       },
     );
   }

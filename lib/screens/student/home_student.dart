@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flight_training/services/firebase_service.dart';
 import 'package:flight_training/utils/states.dart';
 import 'package:flight_training/widgets/alert_dilalog.dart';
+import 'package:flight_training/widgets/lesson_list.dart';
 import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     Widget bodyContainer(BuildContext context) {
       switch (selectedPos) {
         case 0:
-          return Text("data");
+          return LessonList();
           break;
         case 1:
           return Column(

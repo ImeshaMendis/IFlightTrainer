@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultChart extends StatefulWidget {
+  final String id;
   final List<double> head_excepted;
   final List<double> head_real;
   final List<double> alt_ecepted;
@@ -15,21 +17,19 @@ class ResultChart extends StatefulWidget {
       this.head_excepted,
       this.head_real,
       this.alt_ecepted,
-      this.alt_real})
+      this.alt_real,
+      this.id})
       : super(key: key);
 
   final String title;
 
   @override
-  _ResultChartState createState() => _ResultChartState(
-        this.head_excepted,
-        this.head_real,
-        this.alt_ecepted,
-        this.alt_real,
-      );
+  _ResultChartState createState() => _ResultChartState(this.head_excepted,
+      this.head_real, this.alt_ecepted, this.alt_real, this.id);
 }
 
 class _ResultChartState extends State<ResultChart> {
+  final String id;
   final List<double> head_excepted;
   final List<double> head_real;
   final List<double> alt_ecepted;
@@ -87,8 +87,8 @@ class _ResultChartState extends State<ResultChart> {
   String dropdownValueAlt = 'Good';
   String dropdownValueOE = 'Pass';
 
-  _ResultChartState(
-      this.head_excepted, this.head_real, this.alt_ecepted, this.alt_real);
+  _ResultChartState(this.head_excepted, this.head_real, this.alt_ecepted,
+      this.alt_real, this.id);
 
   Material mychart1Items(String title) {
     return Material(
@@ -229,6 +229,7 @@ class _ResultChartState extends State<ResultChart> {
                       ),
                       onChanged: (String newValue) {
                         setState(() {
+                          print(id);
                           dropdownValueHead = newValue;
                         });
                       },
@@ -318,7 +319,22 @@ class _ResultChartState extends State<ResultChart> {
                       color: Colors.blue,
                       child: Text("Review and Close"),
                       onPressed: () {
-                        
+                        Firestore.instance
+                            .collection('lesson')
+                            .document(this.id)
+                            .updateData(
+                          {
+                            "headE": this.hardCode_head_excepted,
+                            "headR": this.hardCode_head_real,
+                            "altR": this.hardCode_alt_real,
+                            "altE": this.hardCode_head_excepted,
+                            "hM": this.dropdownValueHead,
+                            "aM": this.dropdownValueAlt,
+                            "oR": this.dropdownValueOE,
+                            "state": "COMPLETED"
+                          },
+                        );
+                        Navigator.pushNamed(context, '/admin');
                       },
                     )
                   ],

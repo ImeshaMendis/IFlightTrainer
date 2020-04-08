@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flight_training/models/user_location.dart';
 import 'package:flight_training/screens/charts/result_chart.dart';
 import 'package:flight_training/services/alt_pass_service.dart';
@@ -69,7 +68,9 @@ class _AdminLessonViewState extends State<AdminLessonView> {
                   StreamProvider<int>.value(
                       initialData: 0, value: als.altPassStream),
                 ],
-                child: AddToChartButton(),
+                child: AddToChartButton(
+                  id: this.id,
+                ),
               ),
             ],
           ),
@@ -83,6 +84,7 @@ class _AdminLessonViewState extends State<AdminLessonView> {
 }
 
 class AddToChartButton extends StatelessWidget {
+  final String id;
   List<double> head_excepted = [];
   List<double> head_real = [];
   List<double> alt_ecepted = [];
@@ -90,6 +92,7 @@ class AddToChartButton extends StatelessWidget {
 
   AddToChartButton({
     Key key,
+    this.id,
   }) : super(key: key);
 
   @override
@@ -124,6 +127,7 @@ class AddToChartButton extends StatelessWidget {
                 head_real: this.head_real,
                 alt_ecepted: this.alt_ecepted,
                 alt_real: this.alt_real,
+                id: this.id,
               ),
             ),
           );

@@ -1,10 +1,12 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flight_training/screens/charts/report_page.dart';
 import 'package:flight_training/services/firebase_service.dart';
 import 'package:flight_training/utils/states.dart';
 import 'package:flight_training/widgets/alert_dilalog.dart';
 import 'package:flight_training/widgets/lesson_list.dart';
 import 'package:flight_training/widgets/modal_button.dart';
+import 'package:flight_training/widgets/report.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
@@ -1104,6 +1106,26 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onPressed: () async {
                     await notice(context, documentSnapshot);
+                  },
+                ),
+              ),
+            if (documentSnapshot['state'] == "COMPLETED")
+              Positioned(
+                right: 10,
+                top: -10,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.markunread,
+                    color: Colors.green,
+                  ),
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Report(
+                            snapshot: documentSnapshot,
+                          ),
+                        ));
                   },
                 ),
               )

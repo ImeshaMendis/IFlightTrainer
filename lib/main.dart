@@ -7,6 +7,7 @@ import 'package:flight_training/screens/owner/home_owner.dart';
 import 'package:flight_training/screens/student/home_student.dart';
 import 'package:flutter/material.dart';
 
+int flightHours = 0;
 void main() => runApp(FlightApp());
 
 class FlightApp extends StatelessWidget {

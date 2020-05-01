@@ -15,6 +15,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
+import '../../main.dart';
+
 void main() => runApp(HomeStudent());
 
 class HomeStudent extends StatelessWidget {
@@ -619,13 +621,52 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 30),
-                        child: CircleAvatar(
-                          radius: 40,
-                          child: CircleAvatar(
-                            radius: 35,
-                            backgroundImage:
-                                AssetImage("lib/assets/images/avatar.png"),
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            CircleAvatar(
+                              radius: 40,
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundImage:
+                                    AssetImage("lib/assets/images/avatar.png"),
+                              ),
+                            ),
+                            StreamBuilder<DocumentSnapshot>(
+                              stream: Firestore.instance
+                                  .collection('user')
+                                  .document("2K8R8TSlsWARcZOAVOrD")
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError)
+                                  return Text('Error: ${snapshot.error}');
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.none:
+                                    return Text('Select lot');
+                                  case ConnectionState.waiting:
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  case ConnectionState.active:
+                                    flightHours =
+                                        int.parse(snapshot.data['hours']);
+                                    return Text(
+                                      "Flight hrs:" +
+                                          snapshot.data['hours'].toString(),
+                                      style: GoogleFonts.juliusSansOne(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .display1,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
+                                    );
+                                  case ConnectionState.done:
+                                    return Text('\$${snapshot.data} (closed)');
+                                }
+                                return null; // unreachable
+                              },
+                            ),
+                          ],
                         ),
                       ),
                       flex: 1,

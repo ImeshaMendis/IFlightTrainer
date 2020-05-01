@@ -4,6 +4,8 @@ import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../main.dart';
+
 class ResultChart extends StatefulWidget {
   final String id;
   final List<double> head_excepted;
@@ -334,6 +336,12 @@ class _ResultChartState extends State<ResultChart> {
                             "state": "COMPLETED"
                           },
                         );
+                        Firestore.instance
+                            .collection('lesson')
+                            .document("2K8R8TSlsWARcZOAVOrD")
+                            .updateData(
+                                {"hours": (flightHours - 5).toString()});
+
                         Navigator.pushNamed(context, '/admin');
                       },
                     )

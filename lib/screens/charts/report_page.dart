@@ -15,8 +15,18 @@ class ReportPage extends StatefulWidget {
 
 class _ReportPageState extends State<ReportPage> {
   final DocumentSnapshot snapshot;
+  List<double> _headR;
+  List<double> _altR;
+  List<double> headE;
+  List<double> altE;
 
-  _ReportPageState(this.snapshot);
+  _ReportPageState(this.snapshot) {
+    _headR = snapshot.data['headR'].cast<double>();
+    _altR = snapshot.data['altR'].cast<double>();
+    headE = snapshot.data['headE'].cast<double>();
+    altE = snapshot.data['altE'].cast<double>();
+    //print(_headR);
+  }
 
   Material mychart1Items(String title) {
     return Material(
@@ -47,7 +57,7 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data: snapshot.data['headE'],
+                          data: headE, // snapshot.data['headE'].cast<double>(),
                           lineColor: Color(0xffff6101),
                           pointsMode: PointsMode.all,
                           pointSize: 8.0,
@@ -56,7 +66,7 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data: snapshot.data['headR'],
+                          data:_headR, //snapshot.data['headR'].map((s)=> s as double).toList(),
                           lineColor: Colors.green,
                           pointsMode: PointsMode.all,
                           pointSize: 8.0,
@@ -102,7 +112,7 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data: snapshot.data['altE'],
+                          data:altE, //snapshot.data['altE'].map((s)=> s as double).toList(),
                           lineColor: Color(0xffff6101),
                           pointsMode: PointsMode.all,
                           pointSize: 8.0,
@@ -111,10 +121,11 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data: snapshot.data['altR'],
+                          data:
+                              _altR, //snapshot.data['altR'].map((s)=> s as double).toList(),
                           lineColor: Colors.green,
                           pointsMode: PointsMode.all,
-                          pointSize: 8.0,
+                          pointSize: 8.0, 
                         ),
                       ),
                     ],

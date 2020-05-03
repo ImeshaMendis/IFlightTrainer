@@ -10,5 +10,6 @@ class Report extends StatelessWidget {
     return ReportPage(
       snapshot: this.snapshot,
     );
+    // return Text(snapshot.data["headR"].toString());
   }
 }

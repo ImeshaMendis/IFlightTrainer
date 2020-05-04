@@ -12,7 +12,6 @@ class ResultChart extends StatefulWidget {
   final List<double> head_real;
   final List<double> alt_ecepted;
   final List<double> alt_real;
-
   ResultChart(
       {Key key,
       this.title,
@@ -31,6 +30,7 @@ class ResultChart extends StatefulWidget {
 }
 
 class _ResultChartState extends State<ResultChart> {
+  final textController = TextEditingController();
   final String id;
   final List<double> head_excepted;
   final List<double> head_real;
@@ -311,6 +311,22 @@ class _ResultChartState extends State<ResultChart> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: TextField(
+                  controller: textController,
+                  maxLines: 4,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),
+                      ),
+                    ),
+                    hintText: "Additional Comments",
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -321,28 +337,33 @@ class _ResultChartState extends State<ResultChart> {
                       color: Colors.blue,
                       child: Text("Review and Close"),
                       onPressed: () {
-                        Firestore.instance
-                            .collection('lesson')
-                            .document(this.id)
-                            .updateData(
-                          {
-                            "headE": this.hardCode_head_excepted,
-                            "headR": this.hardCode_head_real,
-                            "altR": this.hardCode_alt_real,
-                            "altE": this.hardCode_head_excepted,
-                            "hM": this.dropdownValueHead,
-                            "aM": this.dropdownValueAlt,
-                            "oR": this.dropdownValueOE,
-                            "state": "COMPLETED"
-                          },
-                        );
-                        Firestore.instance
-                            .collection('lesson')
-                            .document("2K8R8TSlsWARcZOAVOrD")
-                            .updateData(
-                                {"hours": (flightHours - 5).toString()});
+                        try {
+                          Firestore _instance = Firestore.instance;
+                          _instance
+                              .collection('lesson')
+                              .document(this.id)
+                              .updateData(
+                            {
+                              "headE": this.hardCode_head_excepted,
+                              "headR": this.hardCode_head_real,
+                              "altR": this.hardCode_alt_real,
+                              "altE": this.hardCode_head_excepted,
+                              "hM": this.dropdownValueHead,
+                              "aM": this.dropdownValueAlt,
+                              "oR": this.dropdownValueOE,
+                              "comments": textController.text,
+                              "state": "COMPLETED"
+                            },
+                          );
+                          // _instance
+                          //     .collection('lesson')
+                          //     .document("2K8R8TSlsWARcZOAVOrD")
+                          //     .updateData({"hours": "15"});
 
-                        Navigator.pushNamed(context, '/admin');
+                          Navigator.pushNamed(context, '/admin');
+                        } catch (e) {
+                          print(e.toString());
+                        }
                       },
                     )
                   ],
@@ -381,7 +402,7 @@ class _ResultChartState extends State<ResultChart> {
           staggeredTiles: [
             StaggeredTile.extent(4, 250.0),
             StaggeredTile.extent(4, 250.0),
-            StaggeredTile.extent(4, 250.0),
+            StaggeredTile.extent(4, 400.0),
           ],
         ),
       ),

@@ -66,7 +66,8 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data:_headR, //snapshot.data['headR'].map((s)=> s as double).toList(),
+                          data:
+                              _headR, //snapshot.data['headR'].map((s)=> s as double).toList(),
                           lineColor: Colors.green,
                           pointsMode: PointsMode.all,
                           pointSize: 8.0,
@@ -112,7 +113,8 @@ class _ReportPageState extends State<ReportPage> {
                       Padding(
                         padding: EdgeInsets.all(1.0),
                         child: new Sparkline(
-                          data:altE, //snapshot.data['altE'].map((s)=> s as double).toList(),
+                          data:
+                              altE, //snapshot.data['altE'].map((s)=> s as double).toList(),
                           lineColor: Color(0xffff6101),
                           pointsMode: PointsMode.all,
                           pointSize: 8.0,
@@ -125,7 +127,7 @@ class _ReportPageState extends State<ReportPage> {
                               _altR, //snapshot.data['altR'].map((s)=> s as double).toList(),
                           lineColor: Colors.green,
                           pointsMode: PointsMode.all,
-                          pointSize: 8.0, 
+                          pointSize: 8.0,
                         ),
                       ),
                     ],
@@ -181,6 +183,20 @@ class _ReportPageState extends State<ReportPage> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: TextField(
+                  enabled: false,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                      ),
+                      hintText: snapshot.data['comments']),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +207,7 @@ class _ReportPageState extends State<ReportPage> {
                       color: Colors.blue,
                       child: Text("Okay"),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/student');
+                        Navigator.pop(context, false);
                       },
                     )
                   ],
@@ -230,7 +246,7 @@ class _ReportPageState extends State<ReportPage> {
           staggeredTiles: [
             StaggeredTile.extent(4, 250.0),
             StaggeredTile.extent(4, 250.0),
-            StaggeredTile.extent(4, 250.0),
+            StaggeredTile.extent(4, 400.0),
           ],
         ),
       ),

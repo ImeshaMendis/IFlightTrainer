@@ -152,7 +152,10 @@ class AdminBooking extends StatelessWidget {
           stream: Firestore.instance
               .collection('lesson')
               .where('date', isEqualTo: Provider.of<int>(context).toString())
-              .snapshots(),
+              .where(
+            'state',
+            whereIn: ['APPROVED', 'PENDING'],
+          ).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) return Text('Error: ${snapshot.error}');
             switch (snapshot.connectionState) {
@@ -446,19 +449,6 @@ class _LessonViewState extends State<LessonView> {
                   color: Colors.white),
             ),
             bottom: 30,
-            left: 20,
-          ),
-          Positioned(
-            child: Text(
-              "961245982V",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.dosis(
-                  textStyle: Theme.of(context).textTheme.display1,
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white),
-            ),
-            bottom: 15,
             left: 20,
           ),
           StreamProvider<DocumentSnapshot>.value(

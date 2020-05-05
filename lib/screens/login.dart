@@ -14,13 +14,13 @@ class _LoginState extends State<Login> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           color: Colors.lightBlueAccent,
-          image: DecorationImage(
-            colorFilter: new ColorFilter.mode(
-                Colors.black.withOpacity(0.1), BlendMode.dstATop),
-            image: NetworkImage(
-                "https://miro.medium.com/max/5036/1*XCZyhvyncuZX_d4plgW1gg.jpeg"),
-            fit: BoxFit.cover,
-          ),
+          // image: DecorationImage(
+          //   colorFilter: new ColorFilter.mode(
+          //       Colors.black.withOpacity(0.1), BlendMode.dstATop),
+          //   image: NetworkImage(
+          //       "https://miro.medium.com/max/5036/1*XCZyhvyncuZX_d4plgW1gg.jpeg"),
+          //   fit: BoxFit.cover,
+          // ),
         ),
         child: new Column(
           children: <Widget>[

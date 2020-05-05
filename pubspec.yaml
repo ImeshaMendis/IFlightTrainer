@@ -41,6 +41,9 @@ dependencies:
   expandable: any
   youtube_player_flutter: ^6.1.0+4
   table_sticky_headers: ^1.1.2
+  firebase_storage: ^3.1.5
+  file_picker: ^1.9.0+1
+  url_launcher: ^5.4.5
 
   
 dev_dependencies:

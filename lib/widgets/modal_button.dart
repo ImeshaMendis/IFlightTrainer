@@ -36,7 +36,7 @@ class ModalButtonState extends State<ModalButton>
           scale: scaleAnimation,
           child: Container(
             width: MediaQuery.of(context).size.width / 1.5,
-            height: MediaQuery.of(context).size.height / 3.5,
+            height: MediaQuery.of(context).size.height / 2.5,
             decoration: ShapeDecoration(
                 color: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
@@ -50,6 +50,29 @@ class ModalButtonState extends State<ModalButton>
                   ),
                   Text(
                     "MockExams",
+                    style: GoogleFonts.juliusSansOne(
+                        textStyle: Theme.of(context).textTheme.display1,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                  RaisedButton(
+                    color: Colors.black45,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    onPressed: () {
+                     
+                      Navigator.pushNamed(context, '/start_exam');
+                    },
+                    child: Text("Start",
+                        style: GoogleFonts.juliusSansOne(
+                            textStyle: Theme.of(context).textTheme.display1,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white)),
+                  ),
+                   Text(
+                    "Practice Exams",
                     style: GoogleFonts.juliusSansOne(
                         textStyle: Theme.of(context).textTheme.display1,
                         fontSize: 20,

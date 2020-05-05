@@ -118,20 +118,22 @@ class AddToChartButton extends StatelessWidget {
             );
           },
         ),
-        RaisedButton(onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ResultChart(
-                head_excepted: this.head_excepted,
-                head_real: this.head_real,
-                alt_ecepted: this.alt_ecepted,
-                alt_real: this.alt_real,
-                id: this.id,
-              ),
-            ),
-          );
-        })
+        RaisedButton(
+            child: Text("Finish"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultChart(
+                    head_excepted: this.head_excepted,
+                    head_real: this.head_real,
+                    alt_ecepted: this.alt_ecepted,
+                    alt_real: this.alt_real,
+                    id: this.id,
+                  ),
+                ),
+              );
+            })
       ],
     );
   }

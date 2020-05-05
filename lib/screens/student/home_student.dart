@@ -14,6 +14,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
@@ -50,9 +51,11 @@ class _HomePageState extends State<HomePage> {
   List<TabItem> tabItems = List.of([
     TabItem(Icons.home, "Home", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    TabItem(Icons.assignment, "EXAMS", Colors.blueAccent,
+    TabItem(Icons.book, "Exams", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    TabItem(Icons.flight, "Tranings", Colors.blueAccent,
+    TabItem(Icons.flight, "Lessons", Colors.blueAccent,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.assignment, "News", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
     TabItem(Icons.person, "Profile", Colors.blueAccent,
         labelStyle: TextStyle(fontWeight: FontWeight.normal)),
@@ -71,7 +74,164 @@ class _HomePageState extends State<HomePage> {
     Widget bodyContainer(BuildContext context) {
       switch (selectedPos) {
         case 0:
-          return LessonList();
+          return Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 11 / 12,
+                color: Colors.lightBlue,
+                child: Column(children: <Widget>[
+                  //
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        child: Text(
+                          "Tranings",
+                          style: GoogleFonts.juliusSansOne(
+                              textStyle: Theme.of(context).textTheme.display1,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: LoadingOverlay(
+                          child: InkWell(
+                            onTap: () async {
+                              _loading = true;
+                              getAvailbeDates().then((dateList) async {
+                                _loading = false;
+                                try {
+                                  DateTime newDateTime =
+                                      await showRoundedDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    lastDate: DateTime(DateTime.now().year + 1),
+                                    firstDate:
+                                        DateTime(DateTime.now().year - 1),
+                                    borderRadius: 16,
+                                    textPositiveButton: "BOOK",
+                                    builderDay: (DateTime dateTime,
+                                        bool isCurrentDay,
+                                        bool isSelected,
+                                        TextStyle defaultTextStyle) {
+                                      for (var date in dateList) {
+                                        if (dateTime.day == int.parse(date)) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.pink[300],
+                                                    width: 4),
+                                                shape: BoxShape.circle),
+                                            child: Center(
+                                              child: Text(
+                                                dateTime.day.toString(),
+                                                style: defaultTextStyle,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      }
+                                    },
+                                  );
+                                  if (newDateTime.day != null) {
+                                    if (dateList
+                                        .contains(newDateTime.day.toString())) {
+                                      Firestore.instance
+                                          .collection('lesson')
+                                          .document()
+                                          .setData(
+                                        {
+                                          'date': newDateTime.day.toString(),
+                                          'state': "PENDING",
+                                          'time': "Set Time"
+                                        },
+                                      );
+                                      Fluttertoast.showToast(
+                                          msg: "Booked Successfully",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg: "Please Select Availble Date",
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    }
+                                  }
+                                } catch (e) {
+                                  print(e.toString());
+                                }
+                              });
+                            },
+                            child: Chip(
+                              backgroundColor: Colors.white,
+                              label: Text("Reserve",
+                                  style: GoogleFonts.juliusSansOne(
+                                      textStyle:
+                                          Theme.of(context).textTheme.display1,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.blue)),
+                            ),
+                          ),
+                          isLoading: _loading,
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Divider(
+                      thickness: 1.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream:
+                          Firestore.instance.collection('lesson').snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError)
+                          return Text('Error: ${snapshot.error}');
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return Text('Loading...');
+                          default:
+                            return ListView(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              children: snapshot.data.documents
+                                  .map((DocumentSnapshot document) {
+                                return lessonCardBuilder(
+                                    context: context,
+                                    documentSnapshot: document);
+                              }).toList(),
+                            );
+                        }
+                      },
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          );
           break;
         case 1:
           return Column(
@@ -436,166 +596,428 @@ class _HomePageState extends State<HomePage> {
 
           break;
         case 2:
+          return LessonList();
+          break;
+        case 3:
           return Column(
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 11 / 12,
                 color: Colors.lightBlue,
-                child: Column(children: <Widget>[
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                          ),
+                          child: Text(
+                            "News",
+                            style: GoogleFonts.juliusSansOne(
+                                textStyle: Theme.of(context).textTheme.display1,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
+                          ),
                         ),
-                        child: Text(
-                          "Tranings",
-                          style: GoogleFonts.juliusSansOne(
-                              textStyle: Theme.of(context).textTheme.display1,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white),
-                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Divider(
+                        thickness: 1.0,
+                        color: Colors.white,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: LoadingOverlay(
-                          child: InkWell(
-                            onTap: () async {
-                              _loading = true;
-                              getAvailbeDates().then((dateList) async {
-                                _loading = false;
-                                try {
-                                  DateTime newDateTime =
-                                      await showRoundedDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    lastDate: DateTime(DateTime.now().year + 1),
-                                    firstDate:
-                                        DateTime(DateTime.now().year - 1),
-                                    borderRadius: 16,
-                                    textPositiveButton: "BOOK",
-                                    builderDay: (DateTime dateTime,
-                                        bool isCurrentDay,
-                                        bool isSelected,
-                                        TextStyle defaultTextStyle) {
-                                      for (var date in dateList) {
-                                        if (dateTime.day == int.parse(date)) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.pink[300],
-                                                    width: 4),
-                                                shape: BoxShape.circle),
-                                            child: Center(
-                                              child: Text(
-                                                dateTime.day.toString(),
-                                                style: defaultTextStyle,
+                    ),
+                    Expanded(
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: Row(children: <Widget>[
+                                Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """On Monday morning, airline body 
+IATA called on Middle Eastern governments to help airlines…""",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          );
-                                        }
-                                      }
-                                    },
-                                  );
-                                  if (newDateTime.day != null) {
-                                    if (dateList
-                                        .contains(newDateTime.day.toString())) {
-                                      Firestore.instance
-                                          .collection('lesson')
-                                          .document()
-                                          .setData(
-                                        {
-                                          'date': newDateTime.day.toString(),
-                                          'state': "PENDING",
-                                          'time': "Set Time"
-                                        },
-                                      );
-                                      Fluttertoast.showToast(
-                                          msg: "Booked Successfully",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    } else {
-                                      Fluttertoast.showToast(
-                                          msg: "Please Select Availble Date",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    }
-                                  }
-                                } catch (e) {
-                                  print(e.toString());
-                                }
-                              });
-                            },
-                            child: Chip(
-                              backgroundColor: Colors.white,
-                              label: Text("Reserve",
-                                  style: GoogleFonts.juliusSansOne(
-                                      textStyle:
-                                          Theme.of(context).textTheme.display1,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.blue)),
+                                              flex: 3),
+                                          Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text("7 hours ago"),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GestureDetector(
+                                                        child: Text(
+                                                          "Read More ...",
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ),
+                                                        onTap: () async {
+                                                          const url =
+                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                          if (await canLaunch(
+                                                              url)) {
+                                                            await launch(url);
+                                                          } else {
+                                                            throw 'Could not launch $url';
+                                                          }
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 1)
+                                        ]),
+                                    flex: 2),
+                                Expanded(
+                                    child: Image.network(
+                                      'https://www.dw.com/image/45247427_303.jpg',
+                                    ),
+                                    flex: 1),
+                              ]),
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                          isLoading: _loading,
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Divider(
-                      thickness: 1.0,
-                      color: Colors.white,
+                           Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: Row(children: <Widget>[
+                                Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """On Monday morning, airline body 
+IATA called on Middle Eastern governments to help airlines…""",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 3),
+                                          Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text("7 hours ago"),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GestureDetector(
+                                                        child: Text(
+                                                          "Read More ...",
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ),
+                                                        onTap: () async {
+                                                          const url =
+                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                          if (await canLaunch(
+                                                              url)) {
+                                                            await launch(url);
+                                                          } else {
+                                                            throw 'Could not launch $url';
+                                                          }
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 1)
+                                        ]),
+                                    flex: 2),
+                                Expanded(
+                                    child: Image.network(
+                                      'https://www.dw.com/image/45247427_303.jpg',
+                                    ),
+                                    flex: 1),
+                              ]),
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                           Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: Row(children: <Widget>[
+                                Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """On Monday morning, airline body 
+IATA called on Middle Eastern governments to help airlines…""",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 3),
+                                          Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text("7 hours ago"),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GestureDetector(
+                                                        child: Text(
+                                                          "Read More ...",
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ),
+                                                        onTap: () async {
+                                                          const url =
+                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                          if (await canLaunch(
+                                                              url)) {
+                                                            await launch(url);
+                                                          } else {
+                                                            throw 'Could not launch $url';
+                                                          }
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 1)
+                                        ]),
+                                    flex: 2),
+                                Expanded(
+                                    child: Image.network(
+                                      'https://www.dw.com/image/45247427_303.jpg',
+                                    ),
+                                    flex: 1),
+                              ]),
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                           Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: Row(children: <Widget>[
+                                Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                      """On Monday morning, airline body 
+IATA called on Middle Eastern governments to help airlines…""",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 3),
+                                          Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text("7 hours ago"),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GestureDetector(
+                                                        child: Text(
+                                                          "Read More ...",
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ),
+                                                        onTap: () async {
+                                                          const url =
+                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                          if (await canLaunch(
+                                                              url)) {
+                                                            await launch(url);
+                                                          } else {
+                                                            throw 'Could not launch $url';
+                                                          }
+                                                        }),
+                                                  ),
+                                                ],
+                                              ),
+                                              flex: 1)
+                                        ]),
+                                    flex: 2),
+                                Expanded(
+                                    child: Image.network(
+                                      'https://www.dw.com/image/45247427_303.jpg',
+                                    ),
+                                    flex: 1),
+                              ]),
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: StreamBuilder<QuerySnapshot>(
-                      stream:
-                          Firestore.instance.collection('lesson').snapshots(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError)
-                          return Text('Error: ${snapshot.error}');
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return Text('Loading...');
-                          default:
-                            return ListView(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              children: snapshot.data.documents
-                                  .map((DocumentSnapshot document) {
-                                return lessonCardBuilder(
-                                    context: context,
-                                    documentSnapshot: document);
-                              }).toList(),
-                            );
-                        }
-                      },
-                    ),
-                  ),
-                ]),
-              ),
+                  ],
+                ),
+              )
             ],
           );
-
           break;
-        case 3:
+        case 4:
           return Column(
             children: <Widget>[
               Container(

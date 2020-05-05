@@ -18,6 +18,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
+import '../../main.dart';
+
 void main() => runApp(HomeStudent());
 
 class HomeStudent extends StatelessWidget {

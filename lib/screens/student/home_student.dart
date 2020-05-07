@@ -15,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
-
 void main() => runApp(HomeStudent());
 
 class HomeStudent extends StatelessWidget {
@@ -141,35 +140,47 @@ class _HomePageState extends State<HomePage> {
                                     },
                                   );
                                   if (newDateTime.day != null) {
-                                    if (dateList
-                                        .contains(newDateTime.day.toString())) {
-                                      Firestore.instance
-                                          .collection('lesson')
-                                          .document()
-                                          .setData(
-                                        {
-                                          'date': newDateTime.day.toString(),
-                                          'state': "PENDING",
-                                          'time': "Set Time"
-                                        },
-                                      );
+                                    if (flightHours < 10) {
                                       Fluttertoast.showToast(
-                                          msg: "Booked Successfully",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    } else {
-                                      Fluttertoast.showToast(
-                                          msg: "Please Select Availble Date",
+                                          msg:
+                                              "You have exceeded flight Hours !",
                                           toastLength: Toast.LENGTH_LONG,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
                                           backgroundColor: Colors.red,
                                           textColor: Colors.white,
                                           fontSize: 16.0);
+                                    } else {
+                                      if (dateList.contains(
+                                          newDateTime.day.toString())) {
+                                        Firestore.instance
+                                            .collection('lesson')
+                                            .document()
+                                            .setData(
+                                          {
+                                            'date': newDateTime.day.toString(),
+                                            'state': "PENDING",
+                                            'time': "Set Time"
+                                          },
+                                        );
+                                        Fluttertoast.showToast(
+                                            msg: "Booked Successfully",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: "Please Select Availble Date",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      }
                                     }
                                   }
                                 } catch (e) {

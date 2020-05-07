@@ -355,10 +355,12 @@ class _ResultChartState extends State<ResultChart> {
                               "state": "COMPLETED"
                             },
                           );
-                          // _instance
-                          //     .collection('lesson')
-                          //     .document("2K8R8TSlsWARcZOAVOrD")
-                          //     .updateData({"hours": "15"});
+
+                          _instance
+                              .collection('user')
+                              .document("2K8R8TSlsWARcZOAVOrD")
+                              .updateData(
+                                  {"hours": (flightHours - 5).toString()});
 
                           Navigator.pushNamed(context, '/admin');
                         } catch (e) {

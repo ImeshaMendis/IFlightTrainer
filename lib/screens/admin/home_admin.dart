@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart' as dpt;
 import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/services/date_pass_service.dart';
 import 'package:flight_training/services/user_pass_service.dart';
 import 'package:flight_training/widgets/reject_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart' as fdp;
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -117,7 +118,8 @@ class _HomeAdminState extends State<HomeAdmin> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                DatePickerTimeline(
+                
+                dpt.DatePicker(
                   DateTime.now(),
                   selectionColor: Colors.lightBlue,
                   onDateChange: (date) {
@@ -383,7 +385,8 @@ class _LessonViewState extends State<LessonView> {
               child: InkWell(
                 splashColor: Colors.blueAccent,
                 onTap: () {
-                  DatePicker.showTimePicker(context, showTitleActions: true,
+                  
+                  fdp.DatePicker.showTimePicker(context, showTitleActions: true,
                       onChanged: (date) {
                     // print(date.hour);
                   }, onConfirm: (date) {

@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flight_training/widgets/decorated_Table.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -136,7 +137,27 @@ class Card2 extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Video Sessions"),
+                    Row(
+                      children: <Widget>[
+                        Text("Video Sessions"),
+                        GestureDetector(
+                            child: Text(
+                              "  (View More ...)",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () async {
+                              const url =
+                                  'https://www.youtube.com/results?search_query=Effects+of+control';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            }),
+                      ],
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -364,7 +385,27 @@ class Card3 extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Video Sessions"),
+                    Row(
+                      children: <Widget>[
+                        Text("Video Sessions"),
+                        GestureDetector(
+                            child: Text(
+                              "  (View More ...)",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () async {
+                              const url =
+                                  'https://www.youtube.com/results?search_query=Straight+and+level';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            }),
+                      ],
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -529,7 +570,7 @@ class Card4 extends StatelessWidget {
     ),
   );
 
- final List<String> titleRow = [
+  final List<String> titleRow = [
     "Best Angle of Climb",
     "Best Rate of Climb",
     "Cruise Climb",
@@ -613,7 +654,27 @@ class Card4 extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Video Sessions"),
+                         Row(
+                      children: <Widget>[
+                        Text("Video Sessions"),
+                        GestureDetector(
+                            child: Text(
+                              "  (View More ...)",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            onTap: () async {
+                              const url =
+                                  'https://www.youtube.com/results?search_query=flight+climbing';
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            }),
+                      ],
+                    ),
                     SizedBox(
                       height: 10,
                     ),

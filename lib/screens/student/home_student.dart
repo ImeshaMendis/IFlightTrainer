@@ -619,13 +619,42 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(
                             left: 20,
                           ),
-                          child: Text(
-                            "News",
-                            style: GoogleFonts.juliusSansOne(
-                                textStyle: Theme.of(context).textTheme.display1,
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "News",
+                                style: GoogleFonts.juliusSansOne(
+                                    textStyle:
+                                        Theme.of(context).textTheme.display1,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                              RaisedButton(
+                                color: Colors.blueAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                ),
+                                child: Text(
+                                  "Weather Report",
+                                  style: GoogleFonts.juliusSansOne(
+                                      textStyle:
+                                          Theme.of(context).textTheme.display1,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                onPressed: () async {
+                                  const url = 'https://aviationweather.gov/';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -734,7 +763,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                           Padding(
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               child: Row(children: <Widget>[
@@ -826,7 +855,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                           Padding(
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               child: Row(children: <Widget>[
@@ -918,7 +947,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                           Padding(
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               child: Row(children: <Widget>[

@@ -1,8 +1,6 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flight_training/screens/charts/report_page.dart';
 import 'package:flight_training/services/firebase_service.dart';
-import 'package:flight_training/utils/states.dart';
 import 'package:flight_training/widgets/alert_dilalog.dart';
 import 'package:flight_training/widgets/lesson_list.dart';
 import 'package:flight_training/widgets/modal_button.dart';
@@ -10,7 +8,6 @@ import 'package:flight_training/widgets/report.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -18,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
-import '../../main.dart';
 
 void main() => runApp(HomeStudent());
 

@@ -788,7 +788,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      """Coronavirus: Aviation industry unites to beg PM on furloughing""",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -799,8 +799,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """On Monday morning, airline body 
-IATA called on Middle Eastern governments to help airlines…""",
+                                                      """Britain's biggest airports, airlines and aviation services groups have issued a joint plea to Boris Johnson ...""",
                                                       style: TextStyle(
                                                           fontWeight: FontWeight
                                                               .normal),
@@ -819,7 +818,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: Text("7 hours ago"),
+                                                    child: Text("8 hours ago"),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -836,7 +835,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         ),
                                                         onTap: () async {
                                                           const url =
-                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                              'https://news.sky.com/story/coronavirus-aviation-industry-unites-to-beg-pm-on-furloughing-11984703';
                                                           if (await canLaunch(
                                                               url)) {
                                                             await launch(url);
@@ -852,7 +851,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                     flex: 2),
                                 Expanded(
                                     child: Image.network(
-                                      'https://www.dw.com/image/45247427_303.jpg',
+                                      'https://e3.365dm.com/20/04/2048x1152/2372004260044517207_4977326.jpg?bypass-service-worker&20200426132449',
                                     ),
                                     flex: 1),
                               ]),
@@ -880,7 +879,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      """JetBlue will delay London plans""",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -891,8 +890,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """On Monday morning, airline body 
-IATA called on Middle Eastern governments to help airlines…""",
+                                                      """Low-cost carrier JetBlue Airways says there will be a “timing impact” to its plans to launch transatlantic flying as a result of the coronavirus crisis.…""",
                                                       style: TextStyle(
                                                           fontWeight: FontWeight
                                                               .normal),
@@ -911,7 +909,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: Text("7 hours ago"),
+                                                    child: Text("8 hours ago"),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -928,7 +926,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         ),
                                                         onTap: () async {
                                                           const url =
-                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                              'https://www.flightglobal.com/airlines/jetblue-will-delay-london-plans/138289.article';
                                                           if (await canLaunch(
                                                               url)) {
                                                             await launch(url);
@@ -944,7 +942,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                     flex: 2),
                                 Expanded(
                                     child: Image.network(
-                                      'https://www.dw.com/image/45247427_303.jpg',
+                                      'https://skift.com/wp-content/uploads/2019/09/jetblue-aircraft-e1567695687357.jpg',
                                     ),
                                     flex: 1),
                               ]),
@@ -972,7 +970,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """IATA Suggests Government Assistance For Middle East Carriers Affected By Virus""",
+                                                      """No further exposure to Virgin Australia, says SIA Group""",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -983,8 +981,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         const EdgeInsets.all(
                                                             4.0),
                                                     child: Text(
-                                                      """On Monday morning, airline body 
-IATA called on Middle Eastern governments to help airlines…""",
+                                                      """Singapore Airlines Group says its financial exposure to Virgin Australia is limited and it is not obliged to inject capital.…""",
                                                       style: TextStyle(
                                                           fontWeight: FontWeight
                                                               .normal),
@@ -1020,7 +1017,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                         ),
                                                         onTap: () async {
                                                           const url =
-                                                              'https://unearthed.greenpeace.org/2020/04/07/coronavirus-airlines-lobby-for-tax-breaks-subsidies-vouchers-passenger-refunds/';
+                                                              'https://www.flightglobal.com/airlines/no-further-exposure-to-virgin-australia-says-sia-group/138287.article';
                                                           if (await canLaunch(
                                                               url)) {
                                                             await launch(url);
@@ -1036,7 +1033,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                     flex: 2),
                                 Expanded(
                                     child: Image.network(
-                                      'https://www.dw.com/image/45247427_303.jpg',
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTCJ3_I6IU5WQkes9l4GsevAcD7U0C5hGO7Jx1IXBWLFcAuKxzH&usqp=CAU',
                                     ),
                                     flex: 1),
                               ]),

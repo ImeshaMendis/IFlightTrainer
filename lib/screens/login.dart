@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "FLIGHT",
+                    "iFLIGHT",
                     style: GoogleFonts.juliusSansOne(
                         textStyle: Theme.of(context).textTheme.display1,
                         fontSize: 30,

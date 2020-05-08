@@ -1,3 +1,5 @@
+import 'package:flight_training/main.dart';
+import 'package:flight_training/widgets/google_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +9,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GoogleLogin _googleSignIn = GoogleLogin();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,8 +73,10 @@ class _LoginState extends State<Login> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       color: Colors.white,
-                      onPressed: () =>
-                          {Navigator.pushNamed(context, '/student')},
+                      onPressed: () async {
+                        isStudent = true;
+                        _googleSignIn.signInWithGoogle();
+                      },
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20.0,
@@ -111,7 +116,10 @@ class _LoginState extends State<Login> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0)),
                       color: Colors.white,
-                      onPressed: () => {Navigator.pushNamed(context, '/admin')},
+                      onPressed: () async {
+                        isStudent = false;
+                        _googleSignIn.signInWithGoogle();
+                      },
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20.0,

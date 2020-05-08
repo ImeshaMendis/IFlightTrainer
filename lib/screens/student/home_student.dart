@@ -2,6 +2,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flight_training/services/firebase_service.dart';
 import 'package:flight_training/widgets/alert_dilalog.dart';
+import 'package:flight_training/widgets/google_login.dart';
 import 'package:flight_training/widgets/lesson_list.dart';
 import 'package:flight_training/widgets/modal_button.dart';
 import 'package:flight_training/widgets/report.dart';
@@ -1466,8 +1467,9 @@ IATA called on Middle Eastern governments to help airlines…""",
                                             color: Colors.white),
                                       ),
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/log_out');
+                                        final GoogleLogin _googleSignIn = GoogleLogin();
+                                        _googleSignIn.signOut();
+                                       //TODO
                                       },
                                     ),
                                   ),

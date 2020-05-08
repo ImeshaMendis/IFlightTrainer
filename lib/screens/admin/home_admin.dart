@@ -15,6 +15,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/services/date_pass_service.dart';
 import 'package:flight_training/services/user_pass_service.dart';
+import 'package:flight_training/widgets/google_login.dart';
 import 'package:flight_training/widgets/reject_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -86,6 +87,21 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white),
                               ),
+                              RaisedButton(
+                                color: Colors.blueAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                ),
+                                onPressed: () async {
+                                  final GoogleLogin _googleSignIn =
+                                      GoogleLogin();
+                                  _googleSignIn.signOut();
+                                },
+                                child: Text(
+                                  "logout",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
                             ],
                           ),
                           top: MediaQuery.of(context).size.height / 6,

@@ -1110,17 +1110,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                   case ConnectionState.active:
                                     flightHours =
                                         int.parse(snapshot.data['hours']);
-                                    return Text(
-                                      "Flight hrs:" +
-                                          snapshot.data['hours'].toString(),
-                                      style: GoogleFonts.juliusSansOne(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .display1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white),
-                                    );
+                                    return Text("");
                                   case ConnectionState.done:
                                     return Text('\$${snapshot.data} (closed)');
                                 }
@@ -1435,6 +1425,44 @@ IATA called on Middle Eastern governments to help airlines…""",
                                                     .textTheme
                                                     .display1,
                                                 fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(
+                                        thickness: 1.0,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
+                                  flex: 1,
+                                ),
+                                   Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            "Flught hours",
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue),
+                                          ),
+                                          Text(
+                                            flightHours.toString(),
+                                            style: GoogleFonts.juliusSansOne(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .display1,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.blue),
                                           ),

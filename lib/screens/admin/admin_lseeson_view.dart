@@ -31,10 +31,10 @@ class _AdminLessonViewState extends State<AdminLessonView> {
       appBar: AppBar(
         title: Text("Take Off"),
       ),
-      body: StreamProvider<UserLocation>(
-        initialData:
-            UserLocation(head: 0.0, altitude: 0.0, longitude: 0.0, speed: 0.0),
-        create: (context) => LocationService().locationStream,
+      body: StreamProvider<UserLocation>.value(
+        initialData:  UserLocation(head: 0.0, altitude: 0.0, longitude: 0.0, speed: 0.0),
+        // create: (context) => LocationService().locationStream,
+        value:LocationService().locationStream,
         child: SlidingUpPanel(
           panel: Column(
             children: <Widget>[

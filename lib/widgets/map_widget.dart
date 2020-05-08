@@ -36,7 +36,7 @@ class MapState extends State<Map> {
       body: Center(
         child: Stack(
           children: <Widget>[
-            GoogleMap(
+            userLocation==null? CircularProgressIndicator(): GoogleMap(
               mapType: MapType.normal,
               markers: Set.from([
                 Marker(

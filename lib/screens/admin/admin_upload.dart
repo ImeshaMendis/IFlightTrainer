@@ -1,17 +1,16 @@
-import 'dart:io';
+// import 'dart:io';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class CloudStorageService {
-  Future<CloudStorageResult> uploadImage({
-    @required File pdfToUpload,
-    @required String title,
-  }) async {}
-}
+// class CloudStorageService {
+//   Future<CloudStorageResult> uploadImage({
+//     @required File pdfToUpload,
+//     @required String title,
+//   }) 
+// }
 
-class CloudStorageResult {
-  final String imageUrl;
-  final String imageFileName;
-
-  CloudStorageResult({this.imageUrl, this.imageFileName});
-}
+// class CloudStorageResult {
+//   final String imageUrl;
+//   final String imageFileName;
+//   CloudStorageResult({this.imageUrl, this.imageFileName});
+// }

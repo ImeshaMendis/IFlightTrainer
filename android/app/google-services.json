@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1059084869086-r8f6vitldpgh19amaf5sqkmhabvl436j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flight_training",
+            "certificate_hash": "3ece674c20237fcfae1bfa8a6a4599fab9559e2a"
+          }
+        },
+        {
+          "client_id": "1059084869086-7995mm0qabu7hh84tvr66dfchsbfl56b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flight_training",
+            "certificate_hash": "c8aab1a14746a4718d4d42f5a426a0983c9f1c84"
+          }
+        },
+        {
           "client_id": "1059084869086-53c0spuspqkkqsch09ha17vs7upu7io4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

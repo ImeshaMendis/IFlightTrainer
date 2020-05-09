@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 int flightHours = 0;
 bool isStudent=true;
+bool isMockExam=false;
 void main() => runApp(FlightApp());
 
 class FlightApp extends StatelessWidget {

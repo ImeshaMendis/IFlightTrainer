@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flight_training/main.dart';
 class ModalButton extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ModalButtonState();
@@ -61,7 +61,7 @@ class ModalButtonState extends State<ModalButton>
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () {
-                     
+                      isMockExam=true;
                       Navigator.pushNamed(context, '/start_exam');
                     },
                     child: Text("Start",
@@ -84,7 +84,7 @@ class ModalButtonState extends State<ModalButton>
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () {
-                     
+                     isMockExam=false;
                       Navigator.pushNamed(context, '/start_exam');
                     },
                     child: Text("Start",

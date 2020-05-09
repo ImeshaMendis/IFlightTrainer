@@ -32,9 +32,10 @@ class _AdminLessonViewState extends State<AdminLessonView> {
         title: Text("Take Off"),
       ),
       body: StreamProvider<UserLocation>.value(
-        initialData:  UserLocation(head: 0.0, altitude: 0.0, longitude: 0.0, speed: 0.0),
+        initialData:
+            UserLocation(head: 0.0, altitude: 0.0, longitude: 0.0, speed: 0.0),
         // create: (context) => LocationService().locationStream,
-        value:LocationService().locationStream,
+        value: LocationService().locationStream,
         child: SlidingUpPanel(
           panel: Column(
             children: <Widget>[
@@ -114,7 +115,8 @@ class AddToChartButton extends StatelessWidget {
               ),
             );
             alt_real.add(
-              Provider.of<UserLocation>(context, listen: false).altitude,
+              altSmooth(
+                  Provider.of<UserLocation>(context, listen: false).altitude),
             );
           },
         ),
@@ -136,5 +138,9 @@ class AddToChartButton extends StatelessWidget {
             })
       ],
     );
+  }
+
+  double altSmooth(double altitude) {
+    return altitude + 50.0;
   }
 }

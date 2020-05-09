@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
                       color: Colors.white,
                       onPressed: () async {
                         isStudent = true;
-                        _googleSignIn.signInWithGoogle();
+                        var user=await _googleSignIn.signInWithGoogle();
                       },
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
                       color: Colors.white,
                       onPressed: () async {
                         isStudent = false;
-                        _googleSignIn.signInWithGoogle();
+                         var user=await _googleSignIn.signInWithGoogle();
                       },
                       child: new Container(
                         padding: const EdgeInsets.symmetric(
@@ -155,46 +155,46 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            new Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-              alignment: Alignment.center,
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(
-                    child: new FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.white,
-                      onPressed: () => {Navigator.pushNamed(context, '/owner')},
-                      child: new Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20.0,
-                          horizontal: 20.0,
-                        ),
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Expanded(
-                              child: Text(
-                                "Admin",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.juliusSansOne(
-                                    textStyle:
-                                        Theme.of(context).textTheme.display1,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.blue),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // new Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
+            //   alignment: Alignment.center,
+            //   child: new Row(
+            //     children: <Widget>[
+            //       new Expanded(
+            //         child: new FlatButton(
+            //           shape: new RoundedRectangleBorder(
+            //               borderRadius: new BorderRadius.circular(30.0)),
+            //           color: Colors.white,
+            //           onPressed: () => {Navigator.pushNamed(context, '/owner')},
+            //           child: new Container(
+            //             padding: const EdgeInsets.symmetric(
+            //               vertical: 20.0,
+            //               horizontal: 20.0,
+            //             ),
+            //             child: new Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: <Widget>[
+            //                 new Expanded(
+            //                   child: Text(
+            //                     "Admin",
+            //                     textAlign: TextAlign.center,
+            //                     style: GoogleFonts.juliusSansOne(
+            //                         textStyle:
+            //                             Theme.of(context).textTheme.display1,
+            //                         fontSize: 15,
+            //                         fontWeight: FontWeight.w700,
+            //                         color: Colors.blue),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

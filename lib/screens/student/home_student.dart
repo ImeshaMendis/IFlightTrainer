@@ -1491,14 +1491,13 @@ IATA called on Middle Eastern governments to help airlines…""",
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async{
                                         final GoogleLogin _googleSignIn = GoogleLogin();
-                                        _googleSignIn.signOut();
-                                       //TODO
+                                        await _googleSignIn.signOut();
                                       },
                                     ),
                                   ),
-                                  flex: 2,
+                                  flex: 1,
                                 ),
                               ],
                             ),

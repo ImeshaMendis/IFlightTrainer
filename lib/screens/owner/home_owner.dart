@@ -16,13 +16,13 @@ class _HomeOwnerState extends State<HomeOwner> {
         children: <Widget>[
           Expanded(
             child: DefaultTabController(
-              length: 2,
+              length: 1,
               child: Scaffold(
                 appBar: AppBar(
                   bottom: TabBar(
                     tabs: [
                       Tab(text: "Students", icon: Icon(Icons.person)),
-                      Tab(text: "Flights", icon: Icon(Icons.flight)),
+                      // Tab(text: "Flights", icon: Icon(Icons.flight)),
                     ],
                   ),
                 ),
@@ -36,14 +36,14 @@ class _HomeOwnerState extends State<HomeOwner> {
                         StudentList(),
                       ],
                     ),
-                    Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FlightList(),
-                      ],
-                    ),
+                    // Column(
+                    //   children: <Widget>[
+                    //     SizedBox(
+                    //       height: 20,
+                    //     ),
+                    //     FlightList(),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

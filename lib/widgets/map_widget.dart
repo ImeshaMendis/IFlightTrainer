@@ -62,7 +62,7 @@ class MapState extends State<Map> {
                 top: 5,
                 left: 5,
                 child: Text(
-                  "Height:" + userLocation.altitude.round().toString() + "m",
+                  "Height:" + userLocation.altitude.round().toString() + "ft",
                   style: GoogleFonts.juliusSansOne(
                       textStyle: Theme.of(context).textTheme.display1,
                       fontSize: 15,

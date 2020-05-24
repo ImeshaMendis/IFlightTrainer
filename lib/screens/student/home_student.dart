@@ -1,5 +1,6 @@
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flight_training/screens/student/solo_tour.dart';
 import 'package:flight_training/services/firebase_service.dart';
 import 'package:flight_training/widgets/alert_dilalog.dart';
 import 'package:flight_training/widgets/google_login.dart';
@@ -99,8 +100,31 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white),
                         ),
                       ),
+                      LoadingOverlay(
+                        child: InkWell(
+                          onTap: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SoloTour(),
+                              ),
+                            );
+                          },
+                          child: Chip(
+                            backgroundColor: Colors.white,
+                            label: Text("SOLO",
+                                style: GoogleFonts.juliusSansOne(
+                                    textStyle:
+                                        Theme.of(context).textTheme.display1,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.blue)),
+                          ),
+                        ),
+                        isLoading: _loading,
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.only(right: 5),
                         child: LoadingOverlay(
                           child: InkWell(
                             onTap: () async {
@@ -1435,7 +1459,7 @@ IATA called on Middle Eastern governments to help airlines…""",
                                   ),
                                   flex: 1,
                                 ),
-                                   Expanded(
+                                Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -1491,8 +1515,9 @@ IATA called on Middle Eastern governments to help airlines…""",
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),
-                                      onPressed: () async{
-                                        final GoogleLogin _googleSignIn = GoogleLogin();
+                                      onPressed: () async {
+                                        final GoogleLogin _googleSignIn =
+                                            GoogleLogin();
                                         await _googleSignIn.signOut();
                                       },
                                     ),

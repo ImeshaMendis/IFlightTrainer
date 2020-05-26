@@ -1599,7 +1599,9 @@ IATA called on Middle Eastern governments to help airlines…""",
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Take Off",
+                    documentSnapshot['lessonName'] == null
+                        ? "Effect of Controll"
+                        : documentSnapshot['lessonName'],
                     style: GoogleFonts.juliusSansOne(
                         textStyle: Theme.of(context).textTheme.display1,
                         fontSize: 30,
@@ -1660,6 +1662,12 @@ IATA called on Middle Eastern governments to help airlines…""",
                     await notice(context, documentSnapshot);
                   },
                 ),
+              ),
+            if (documentSnapshot['state'] == "COMPLETED")
+              Positioned(
+                right: 10,
+                bottom: 10,
+                child: Text("2020/05/" + documentSnapshot['date']),
               ),
             if (documentSnapshot['state'] == "COMPLETED")
               Positioned(

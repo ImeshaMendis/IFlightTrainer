@@ -15,6 +15,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flight_training/screens/admin/admin_lseeson_view.dart';
 import 'package:flight_training/services/date_pass_service.dart';
 import 'package:flight_training/services/user_pass_service.dart';
+import 'package:flight_training/utils/lesson_type.dart';
 import 'package:flight_training/widgets/google_login.dart';
 import 'package:flight_training/widgets/reject_dialog.dart';
 import 'package:flutter/material.dart';
@@ -352,6 +353,7 @@ class LessonView extends StatefulWidget {
 class _LessonViewState extends State<LessonView> {
   DocumentSnapshot snapshot;
   String time = "Set Time";
+  String lesson = "Effect of Controll";
   _LessonViewState(DocumentSnapshot snap) {
     this.snapshot = snap;
     this.time = snap.data['time'];
@@ -397,7 +399,6 @@ class _LessonViewState extends State<LessonView> {
                             color: Colors.white,
                           )),
                       onTap: () {
-                        //TODO close button
                         rejectnotice(context, snapshot);
                       },
                     ),
@@ -413,7 +414,6 @@ class _LessonViewState extends State<LessonView> {
                 onTap: () {
                   DatePicker.showTimePicker(context, showTitleActions: true,
                       onChanged: (date) {
-                    // print(date.hour);
                   }, onConfirm: (date) {
                     setState(() {
                       time =
@@ -421,8 +421,11 @@ class _LessonViewState extends State<LessonView> {
                       Firestore.instance
                           .collection('lesson')
                           .document(snapshot.documentID)
-                          .updateData(
-                              {"time": time.toString(), "state": "APPROVED"});
+                          .updateData({
+                        "time": time.toString(),
+                        "state": "APPROVED",
+                        "lessonName": lesson.toString()
+                      });
 
                       ///
                     });
@@ -441,14 +444,29 @@ class _LessonViewState extends State<LessonView> {
             right: 60,
           ),
           Positioned(
-            child: Text(
-              "Take Off",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.juliusSansOne(
-                  textStyle: Theme.of(context).textTheme.display1,
-                  fontSize: 40,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white),
+            child: DropdownButton<String>(
+              dropdownColor: Colors.blueAccent,
+              hint: Text("Select item"),
+              value: lesson,
+              onChanged: (String v) {
+                setState(() {
+                  lesson = v;
+                });
+              },
+              items: lessons.map((String user) {
+                return DropdownMenuItem<String>(
+                  value: user,
+                  child: Text(
+                    user.toString(),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.juliusSansOne(
+                        textStyle: Theme.of(context).textTheme.display1,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                );
+              }).toList(),
             ),
             top: 20,
             left: 10,
